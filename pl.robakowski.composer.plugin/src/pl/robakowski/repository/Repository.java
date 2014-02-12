@@ -30,6 +30,7 @@ import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.json.JSONObject;
 
 public class Repository implements IRepository {
 	private static final String JSON = "{\"repositories\":[{\"packagist\":false}, {\"type\":\"%type\", \"url\":\"%url\"}]}";
@@ -93,9 +94,9 @@ public class Repository implements IRepository {
 	 * @see pl.robakowski.repository.IRepository#getNextResults()
 	 */
 	@Override
-	public List<String[]> getNextResults(final IProgressMonitor monitor) {
+	public List<JSONObject> getNextResults(final IProgressMonitor monitor) {
 		moreResults = false;
-		List<String[]> list = new ArrayList<String[]>(30);
+		List<JSONObject> list = new ArrayList<JSONObject>(30);
 		if (!checkRuntime()) {
 			sync.syncExec(new Runnable() {
 
@@ -141,9 +142,12 @@ public class Repository implements IRepository {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				int space = line.indexOf(' ');
-				String first = line.substring(0, space);
-				String second = line.substring(space + 1);
-				list.add(new String[] { first, second });
+				String name = line.substring(0, space);
+				String repository = line.substring(space + 1);
+				JSONObject obj = new JSONObject();
+				obj.put("name", name);
+				obj.put("description", repository);
+				list.add(obj);
 			}
 			exec.waitFor();
 		} catch (Exception e) {

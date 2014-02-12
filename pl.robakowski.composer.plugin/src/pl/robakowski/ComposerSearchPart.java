@@ -17,7 +17,9 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.Preference;
+import org.eclipse.e4.ui.di.PersistState;
 import org.eclipse.e4.ui.di.UISynchronize;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.TableViewer;
@@ -48,6 +50,9 @@ public class ComposerSearchPart {
 	private UISynchronize sync;
 	private Text query;
 
+	@Inject
+	private MPart part;
+
 	@PostConstruct
 	public void create(Composite parent) {
 		parent.setLayout(GridLayoutFactory.fillDefaults().numColumns(2)
@@ -71,16 +76,22 @@ public class ComposerSearchPart {
 		table.setLayoutData(GridDataFactory.fillDefaults().grab(true, true)
 				.span(2, 1).create());
 		TableViewerColumn nameColumn = new TableViewerColumn(result, SWT.NONE);
-		nameColumn.setLabelProvider(new ArrayLabelProvider<String>(0));
+		nameColumn.setLabelProvider(new JsonLabelProvider("name"));
 		nameColumn.getColumn().setText("Name");
 		nameColumn.getColumn().setWidth(200);
 		TableViewerColumn descriptionColumn = new TableViewerColumn(result,
 				SWT.NONE);
-		descriptionColumn.setLabelProvider(new ArrayLabelProvider<String>(1));
+		descriptionColumn
+				.setLabelProvider(new JsonLabelProvider("description"));
 		descriptionColumn.getColumn().setText("Description");
 		descriptionColumn.getColumn().setWidth(200);
 
 		context.set(TableViewer.class, result);
+
+		String q = part.getPersistedState().get("query");
+		if (q != null) {
+			query.setText(q);
+		}
 	}
 
 	@Inject
@@ -122,5 +133,10 @@ public class ComposerSearchPart {
 				RepositoryContentProvider.class, context));
 		boolean empty = text == null || text.trim().isEmpty();
 		result.setItemCount(empty ? 0 : 1);
+	}
+
+	@PersistState
+	public void persistState() {
+		part.getPersistedState().put("query", query.getText());
 	}
 }

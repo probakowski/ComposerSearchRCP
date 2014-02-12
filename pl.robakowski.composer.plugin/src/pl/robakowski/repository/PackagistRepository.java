@@ -26,8 +26,8 @@ public class PackagistRepository implements IRepository {
 	private String addr;
 
 	@Override
-	public List<String[]> getNextResults(IProgressMonitor monitor) {
-		LinkedList<String[]> result = new LinkedList<String[]>();
+	public List<JSONObject> getNextResults(IProgressMonitor monitor) {
+		LinkedList<JSONObject> result = new LinkedList<JSONObject>();
 		try {
 			InputStream input = new URL(addr).openStream();
 			JSONObject object = new JSONObject(
@@ -36,8 +36,7 @@ public class PackagistRepository implements IRepository {
 			JSONArray resultArray = object.getJSONArray("results");
 			for (int i = 0; i < resultArray.length(); i++) {
 				JSONObject obj = resultArray.getJSONObject(i);
-				result.add(new String[] { obj.getString("name"),
-						obj.getString("description") });
+				result.add(obj);
 			}
 			addr = null;
 			if (object.has("next")) {

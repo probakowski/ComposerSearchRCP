@@ -16,6 +16,8 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.viewers.ILazyContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RepositoryContentProvider implements ILazyContentProvider {
 
@@ -53,7 +55,12 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			return;
 		}
 		setRunning(true);
-		result.replace(new String[] { "Loading more results...", "" }, index);
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("name", "Loading more results...");
+		} catch (JSONException e) {
+		}
+		result.replace(obj, index);
 		job = new Job("Loading results") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
@@ -96,8 +103,8 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			}
 
 			monitor.beginTask(it.last().toString(), IProgressMonitor.UNKNOWN);
-			final List<String[]> nextResults = it.last()
-					.getNextResults(monitor);
+			final List<JSONObject> nextResults = it.last().getNextResults(
+					monitor);
 			monitor.done();
 
 			final int in = filled.getAndAdd(nextResults.size());
@@ -110,7 +117,7 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 				public void run() {
 					int i = in;
 					result.setItemCount(filled.get() + 1);
-					for (String[] next : nextResults) {
+					for (JSONObject next : nextResults) {
 						result.replace(next, i++);
 					}
 				}
