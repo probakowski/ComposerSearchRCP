@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_FgCuEJInEeOfo6cbiCCV4g">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_GOkoAJInEeOfo6cbiCCV4g" featurename="trimContributions" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="menu:TrimContribution" xmi:id="_LHUfoJInEeOfo6cbiCCV4g" elementId="composerrpc.trimcontribution.0" parentId="org.eclipse.ui.main.toolbar" positionInParent="after=additions">
+      <children xsi:type="menu:ToolBar" xmi:id="_L6PxYJInEeOfo6cbiCCV4g" elementId="composerrpc.toolbar.0">
+        <children xsi:type="menu:DirectToolItem" xmi:id="_L6PxYZInEeOfo6cbiCCV4g" elementId="composerrpc.directtoolitem.0" label="" iconURI="platform:/plugin/pl.robakowski.composer/icons/composer.png" contributionURI="bundleclass://pl.robakowski.composer/pl.robakowski.ComposerSearchOpener"/>
+      </children>
+    </elements>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_NAeZoJInEeOfo6cbiCCV4g" featurename="descriptors" parentElementId="org.eclipse.e4.legacy.ide.application">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_Rt9ccJInEeOfo6cbiCCV4g" elementId="composerSearch" label="Composer Search" iconURI="platform:/plugin/pl.robakowski.composer/icons/composer.png" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://pl.robakowski.composer/pl.robakowski.ComposerSearchPart"/>
+  </fragments>
+</fragment:ModelFragments>

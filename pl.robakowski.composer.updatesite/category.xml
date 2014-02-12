@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/pl.robakowski.composer.feature_1.0.0.qualifier.jar" id="pl.robakowski.composer.feature" version="1.0.0.qualifier">
+      <category name="composer"/>
+   </feature>
+   <category-def name="composer" label="Composer Search"/>
+</site>

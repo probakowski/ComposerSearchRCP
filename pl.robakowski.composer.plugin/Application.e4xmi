@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_LVgpcJIjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.legacy.ide.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_LVgpcZIjEeOfo6cbiCCV4g" elementId="IDEWindow" label="ComposerRPC" iconURI="platform:/plugin/pl.robakowski.composer/icons/composer.png" width="500" height="400">
+    <children xsi:type="advanced:Area" xmi:id="_3HvTIJIjEeOfo6cbiCCV4g" elementId="composerrpc.area.0">
+      <children xsi:type="basic:PartStack" xmi:id="_1k8qsJIjEeOfo6cbiCCV4g" elementId="composerrpc.partstack.0">
+        <tags>org.eclipse.e4.secondaryDataStack</tags>
+      </children>
+    </children>
+    <mainMenu xmi:id="_2am34JQGEeOEauW842kGOA" elementId="pl.robakowski.composer.plugin.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_3Thc4JQGEeOEauW842kGOA" elementId="pl.robakowski.composer.plugin.menu.2" label="Window" mnemonics="W">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_AeZ4EJQHEeOEauW842kGOA" elementId="pl.robakowski.composer.plugin.handledmenuitem.1" label="Preferences" command="_t9-p0JQGEeOEauW842kGOA"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_PaN1AJIjEeOfo6cbiCCV4g" elementId="composerrpc.trimbar.0" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_vvghUJIjEeOfo6cbiCCV4g" elementId="composerrpc.toolcontrol.0" contributionURI="bundleclass://pl.robakowski.composer/pl.robakowski.progress.ProgressBarControl"/>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_xHn7UJQGEeOEauW842kGOA" elementId="pl.robakowski.composer.plugin.handler.0" contributionURI="bundleclass://pl.robakowski.composer/pl.robakowski.preferences.PreferenceHandler" command="_t9-p0JQGEeOEauW842kGOA"/>
+  <commands xmi:id="_t9-p0JQGEeOEauW842kGOA" elementId="org.eclipse.ui.window.preferences" commandName="Preferences">
+    <parameters xmi:id="_vaN-UJQGEeOEauW842kGOA" elementId="preferencePageId" name="preferencePageId"/>
+  </commands>
+  <commands xmi:id="_mk9_cJQHEeOEauW842kGOA" elementId="e4.exit" commandName="Exit"/>
+  <addons xmi:id="_LVgpcpIjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_LVgpc5IjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_LVgpdJIjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_LVgpdZIjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_LVgpd5IjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_LVgpeJIjEeOfo6cbiCCV4g" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_KYEFkJIqEeOfo6cbiCCV4g" elementId="composerrpc.addon.0" contributionURI="bundleclass://pl.robakowski.composer/pl.robakowski.ComposerSearchAddon"/>
+</application:Application>
