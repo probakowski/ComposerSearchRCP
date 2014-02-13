@@ -34,57 +34,37 @@ public class ProgressBarControl extends NullProgressMonitor {
 	public void create(final Composite composite) {
 		composite.setLayout(GridLayoutFactory.fillDefaults().numColumns(2)
 				.equalWidth(false).create());
-		final Composite parent = new Composite(composite, SWT.NONE);
-		parent.setLayoutData(GridDataFactory.fillDefaults().grab(true, false)
-				.create());
-		parent.setLayout(GridLayoutFactory.fillDefaults().numColumns(2)
-				.create());
+		
+		final Composite parent = createProgressMonitorParent(composite);
 
 		final Text label = new Text(parent, SWT.NONE);
 		final ProgressBar bar = new ProgressBar(parent, SWT.INDETERMINATE);
 		bar.setLayoutData(GridDataFactory.fillDefaults().grab(true, false)
 				.create());
 
-		final AtomicInteger count = new AtomicInteger();
-		Job.getJobManager().setProgressProvider(new ProgressProvider() {
+		createPlaceholder(composite);
+		
+		Job.getJobManager().setProgressProvider(new ProgressProvider() {			
+			final AtomicInteger count = new AtomicInteger();
+			
 			@Override
 			public IProgressMonitor createMonitor(final Job job) {
-				return new NullProgressMonitor() {
-					private int id;
-
-					@Override
-					public void beginTask(final String name, int totalWork) {
-						sync.asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								id = count.incrementAndGet();
-								label.setText(job.getName());
-								bar.setToolTipText(name);
-								parent.setVisible(true);
-								parent.layout();
-							}
-						});
-
-					}
-
-					@Override
-					public void done() {
-						sync.asyncExec(new Runnable() {
-							@Override
-							public void run() {
-								if (count.get() == id) {
-									parent.setVisible(false);
-								}
-							}
-						});
-
-					}
-				};
+				return new ProgressMonitor(parent, job, label, bar, count, sync);
 			}
 		});
+	}
 
+	private Composite createProgressMonitorParent(final Composite composite) {
+		final Composite parent = new Composite(composite, SWT.NONE);
+		parent.setLayoutData(GridDataFactory.fillDefaults().grab(true, false)
+				.create());
+		parent.setLayout(GridLayoutFactory.fillDefaults().numColumns(2)
+				.create());
 		parent.setVisible(false);
+		return parent;
+	}
 
+	private void createPlaceholder(final Composite composite) {
 		Label placeholder = new Label(composite, SWT.NONE);
 		placeholder.setText(" ");
 		placeholder.setLayoutData(GridDataFactory.fillDefaults().create());

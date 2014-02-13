@@ -5,22 +5,22 @@ import java.io.IOException;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.swt.widgets.Composite;
 
-public class PhpFieldEditor extends FileFieldEditor {
-	public PhpFieldEditor() {
+public class PHPFieldEditor extends FileFieldEditor {
+	public PHPFieldEditor() {
 		super();
 	}
 
-	public PhpFieldEditor(String name, String labelText,
+	public PHPFieldEditor(String name, String labelText,
 			boolean enforceAbsolute, Composite parent) {
 		super(name, labelText, enforceAbsolute, parent);
 	}
 
-	public PhpFieldEditor(String name, String labelText,
+	public PHPFieldEditor(String name, String labelText,
 			boolean enforceAbsolute, int validationStrategy, Composite parent) {
 		super(name, labelText, enforceAbsolute, validationStrategy, parent);
 	}
 
-	public PhpFieldEditor(String name, String labelText, Composite parent) {
+	public PHPFieldEditor(String name, String labelText, Composite parent) {
 		super(name, labelText, parent);
 	}
 

@@ -99,7 +99,6 @@ public class Repository implements IRepository {
 		List<JSONObject> list = new ArrayList<JSONObject>(30);
 		if (!checkRuntime()) {
 			sync.asyncExec(new Runnable() {
-
 				@Override
 				public void run() {
 					MessageDialog dialog = new MessageDialog(shell,

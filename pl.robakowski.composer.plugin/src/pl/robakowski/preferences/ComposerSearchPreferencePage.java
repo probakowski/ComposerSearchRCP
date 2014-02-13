@@ -59,7 +59,7 @@ public class ComposerSearchPreferencePage extends FieldEditorPreferencePage {
 	}
 
 	private void createPhpField() {
-		FileFieldEditor phpPath = new PhpFieldEditor("phpPath", "PHP path:",
+		FileFieldEditor phpPath = new PHPFieldEditor("phpPath", "PHP path:",
 				getFieldEditorParent());
 		String[] ext = new String[] { "*.exe" };
 		phpPath.setFileExtensions(ext);
