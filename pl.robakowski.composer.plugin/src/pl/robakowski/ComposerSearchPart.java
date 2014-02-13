@@ -18,7 +18,6 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.extensions.Preference;
 import org.eclipse.e4.ui.di.PersistState;
-import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -46,8 +45,6 @@ public class ComposerSearchPart {
 	@Inject
 	private IEclipseContext context;
 
-	@Inject
-	private UISynchronize sync;
 	private Text query;
 
 	@Inject
