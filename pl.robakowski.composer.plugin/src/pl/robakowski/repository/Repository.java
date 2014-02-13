@@ -98,7 +98,7 @@ public class Repository implements IRepository {
 		moreResults = false;
 		List<JSONObject> list = new ArrayList<JSONObject>(30);
 		if (!checkRuntime()) {
-			sync.syncExec(new Runnable() {
+			sync.asyncExec(new Runnable() {
 
 				@Override
 				public void run() {

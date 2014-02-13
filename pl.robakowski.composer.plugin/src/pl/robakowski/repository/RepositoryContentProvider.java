@@ -66,7 +66,6 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			protected IStatus run(IProgressMonitor monitor) {
 				loadObjects(index, monitor);
 				setRunning(false);
-				monitor.done();
 				return Status.OK_STATUS;
 			}
 		};
@@ -77,7 +76,7 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 		running.set(run);
 	}
 
-	public void loadObjects(int index, IProgressMonitor monitor) {
+	public void loadObjects(int index, final IProgressMonitor monitor) {
 		while (filled.get() <= index) {
 			while ((it.last() == null || !it.last().hasMoreResults())
 					&& it.hasNext()) {
@@ -103,8 +102,10 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			}
 
 			monitor.beginTask(it.last().toString(), IProgressMonitor.UNKNOWN);
+
 			final List<JSONObject> nextResults = it.last().getNextResults(
 					monitor);
+
 			monitor.done();
 
 			final int in = filled.getAndAdd(nextResults.size());
