@@ -124,18 +124,31 @@ public class Repository implements IRepository {
 		try {
 			final Process exec = new ProcessBuilder().command(phpPath,
 					composerPath, "search", query).start();
-			new Thread() {
+			Thread killer = new Thread() {
+
+				private boolean terminated(Process exec) {
+					try {
+						exec.exitValue();
+						return true;
+					} catch (IllegalThreadStateException e) {
+						return false;
+					}
+				}
+
 				@Override
 				public void run() {
-					if (monitor.isCanceled()) {
-						exec.destroy();
-					}
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
+					while (!terminated(exec)) {
+						if (monitor.isCanceled()) {
+							exec.destroy();
+						}
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+						}
 					}
 				};
-			}.start();
+			};
+			killer.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					exec.getInputStream()));
 			String line;

@@ -51,29 +51,23 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 
 	@Override
 	public void updateElement(final int index) {
-		if (running.get() || filled.get() != index) {
-			return;
-		}
-		setRunning(true);
-		JSONObject obj = new JSONObject();
-		try {
-			obj.put("name", "Loading more results...");
-		} catch (JSONException e) {
-		}
-		result.replace(obj, index);
-		job = new Job("Loading results") {
-			@Override
-			protected IStatus run(IProgressMonitor monitor) {
-				loadObjects(index, monitor);
-				setRunning(false);
-				return Status.OK_STATUS;
+		if (filled.get() == index && running.compareAndSet(false, true)) {
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("name", "Loading more results...");
+			} catch (JSONException e) {
 			}
-		};
-		job.schedule();
-	}
-
-	public void setRunning(boolean run) {
-		running.set(run);
+			result.replace(obj, index);
+			job = new Job("Loading results") {
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					loadObjects(index, monitor);
+					running.set(false);
+					return Status.OK_STATUS;
+				}
+			};
+			job.schedule();
+		}
 	}
 
 	public void loadObjects(int index, final IProgressMonitor monitor) {
@@ -116,6 +110,9 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			sync.asyncExec(new Runnable() {
 				@Override
 				public void run() {
+					if (monitor.isCanceled()) {
+						return;
+					}
 					int i = in;
 					result.setItemCount(filled.get() + 1);
 					for (JSONObject next : nextResults) {
