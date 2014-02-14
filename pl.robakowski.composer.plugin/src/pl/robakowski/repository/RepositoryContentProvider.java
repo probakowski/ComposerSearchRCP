@@ -78,20 +78,17 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			}
 
 			if (monitor.isCanceled()) {
+				fixResult();
 				return;
 			}
 
 			if (it.last() == null || !it.last().hasMoreResults()) {
-				sync.asyncExec(new Runnable() {
-					@Override
-					public void run() {
-						result.setItemCount(filled.get());
-					}
-				});
+				fixResult();
 				return;
 			}
 
 			if (monitor.isCanceled()) {
+				fixResult();
 				return;
 			}
 
@@ -105,12 +102,14 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 			final int in = filled.getAndAdd(nextResults.size());
 
 			if (monitor.isCanceled()) {
+				fixResult();
 				return;
 			}
 			sync.asyncExec(new Runnable() {
 				@Override
 				public void run() {
 					if (monitor.isCanceled()) {
+						fixResult();
 						return;
 					}
 					int i = in;
@@ -121,5 +120,14 @@ public class RepositoryContentProvider implements ILazyContentProvider {
 				}
 			});
 		}
+	}
+
+	private void fixResult() {
+		sync.asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				result.setItemCount(filled.get());
+			}
+		});
 	}
 }
